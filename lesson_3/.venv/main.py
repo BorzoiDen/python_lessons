@@ -4,8 +4,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-LOGIN = os.getenv("LOGIN")
-PASSWORD = os.getenv("PASSWORD")
+login= os.getenv("LOGIN")
+password= os.getenv("PASSWORD")
 ref_link = 'https://dvmn.org/referrals/MQpyTnsrKoKZOAOCgDOKykyTDwDAbmzWHD5DVB2L/'
 friend_name = 'Аркадий'
 sender_name = 'Денис'
@@ -48,7 +48,7 @@ Content-Type: {3}
 letter = letter.encode("UTF-8")
 
 server = smtplib.SMTP_SSL('smtp.yandex.ru:465')
-server.login(LOGIN, PASSWORD)
+server.login(login, password)
 server.sendmail(letter_from, letter_to, letter)
 server.quit()
 
