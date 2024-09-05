@@ -6,14 +6,14 @@ load_dotenv()
 
 LOGIN = os.getenv("LOGIN")
 PASSWORD = os.getenv("PASSWORD")
-MY_REF_LINK = 'https://dvmn.org/referrals/MQpyTnsrKoKZOAOCgDOKykyTDwDAbmzWHD5DVB2L/'
-FRIEND_NAME = 'Аркадий'
-MY_NAME = 'Денис'
-FROM = 'borozenetsdn@yandex.ru'
-TO = 'borozenetsdn@yandex.ru'
-SUBJECT = 'Приглашение'
-CONTENT_TYPE = 'text/plain; charset="UTF-8";'
-TEXT = """Привет, %friend_name%!, %my_name% приглашает тебя на сайт %website%!
+ref_link = 'https://dvmn.org/referrals/MQpyTnsrKoKZOAOCgDOKykyTDwDAbmzWHD5DVB2L/'
+friend_name = 'Аркадий'
+sender_name = 'Денис'
+letter_from = 'borozenetsdn@yandex.ru'
+letter_to = 'borozenetsdn@yandex.ru'
+subject = 'Приглашение'
+content_type = 'text/plain; charset="UTF-8";'
+text = """Привет, %friend_name%!, %my_name% приглашает тебя на сайт %website%!
 
 %website% — это новая версия онлайн-курса по программированию. 
 Изучаем Python и не только. Решаем задачи. Получаем ревью от преподавателя. 
@@ -31,24 +31,24 @@ TEXT = """Привет, %friend_name%!, %my_name% приглашает тебя 
 На курсы, которые еще не вышли, можно подписаться и получить уведомление о релизе сразу на имейл."""
 
 REPLACEMENTS = [
-    ("%website%", MY_REF_LINK),
-    ("%friend_name%", FRIEND_NAME),
-    ("%my_name%", MY_NAME),
+    ("%website%", ref_link),
+    ("%friend_name%", friend_name),
+    ("%my_name%", sender_name),
 ]
 
 for replacement in REPLACEMENTS:
-    TEXT = TEXT.replace(replacement[0], replacement[1])
+    text = text.replace(replacement[0], replacement[1])
 
 letter = '''From: {0}
 To: {1}
 Subject: {2}
 Content-Type: {3}
 
-'''.format(FROM, TO, SUBJECT, CONTENT_TYPE) + TEXT
+'''.format(letter_from, letter_to, subject, content_type) + text
 letter = letter.encode("UTF-8")
 
 server = smtplib.SMTP_SSL('smtp.yandex.ru:465')
 server.login(LOGIN, PASSWORD)
-server.sendmail(FROM, TO, letter)
+server.sendmail(letter_from, letter_to, letter)
 server.quit()
 
