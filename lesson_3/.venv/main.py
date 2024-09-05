@@ -30,13 +30,13 @@ text = """Привет, %friend_name%!, %my_name% приглашает тебя 
 Регистрируйся → %website%  
 На курсы, которые еще не вышли, можно подписаться и получить уведомление о релизе сразу на имейл."""
 
-REPLACEMENTS = [
+replacements = [
     ("%website%", ref_link),
     ("%friend_name%", friend_name),
     ("%my_name%", sender_name),
 ]
 
-for replacement in REPLACEMENTS:
+for replacement in replacements:
     text = text.replace(replacement[0], replacement[1])
 
 letter = '''From: {0}
